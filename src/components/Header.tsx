@@ -5,11 +5,10 @@ const Header = () => {
   const currentMonth = dayjs().format("MMMM D, YYYY");
   return (
     <>
-    <div>
-
-      <CalendarMonthIcon fontSize="large"/>
-      <h1>{currentMonth}</h1>
-    </div>
+      <div className="bg-violet-200">
+        <CalendarMonthIcon fontSize="large" />
+        <h1 className="text-black">{currentMonth}</h1>
+      </div>
     </>
   );
 };

@@ -1,16 +1,31 @@
 import dayjs from "dayjs";
+import { useState } from "react";
+import Modal from "./Modal";
 
 const Calendar = () => {
-  const currentDay = dayjs().format("MMM");
-  const currentDate = dayjs().format("D");
-  const d = new Date();
-  const month = d.getMonth() + 1;
-  const daysInMonth = dayjs()
-    .month(month - 1)
-    .daysInMonth();
+  const [isModal, setIsModal] = useState(false);
+  //const currentDay = dayjs().format("MMM");
+  const currentDate = dayjs().format("MMM D");
+  //const d = new Date();
+  //const month = d.getMonth() + 1;
+  // const daysInMonth = dayjs()
+  //   .month(month - 1)
+  //   .daysInMonth();
 
-  const arrOfDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-  console.log(arrOfDays);
+  const arrOfDays = Array.from({ length: 23 }, (_, i) => {
+    return {
+      date: i + 1,
+      id: i + 1,
+    };
+  });
+
+  const openEditModal = () => {
+    setIsModal(true);
+  };
+
+  const closeModal = () => {
+    setIsModal(false);
+  };
 
   return (
     <>
@@ -20,7 +35,6 @@ const Calendar = () => {
             <th>GMT</th>
             <th>
               <div className="date">
-                <span>{currentDay}</span>
                 <span>{currentDate}</span>
               </div>
             </th>
@@ -28,13 +42,28 @@ const Calendar = () => {
         </thead>
         <tbody>
           <tr>
-            {arrOfDays.map((day, index) => (
-              <tr key={index}>
-                <td>{day}</td>
-              </tr>
-            ))}
+            <td>
+              {arrOfDays.map((day) => (
+                <div key={day.id}>{day.date}:00</div>
+              ))}
+            </td>
+            <td>
+              {arrOfDays.map((day) => (
+                <div key={day.id}>
+                  <button onClick={openEditModal}>hello</button>
+                  {isModal && (
+                    <Modal
+                      isOpen={isModal}
+                      onClose={closeModal}
+                      title={"Edit user data"}
+                    >
+                      <p>hello</p>
+                    </Modal>
+                  )}
+                </div>
+              ))}
+            </td>
           </tr>
-          <td>Dato 2-2</td>
         </tbody>
       </table>
     </>
